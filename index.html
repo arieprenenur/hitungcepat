@@ -10,18 +10,17 @@
   <link rel="apple-touch-icon" href="icon-192.png">
 
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; background-color: #0f172a; color: #fff; display: flex; justify-content: center; align-items: center; font-family: sans-serif; }
+    /* Hilangkan margin agar iframe full screen seperti aplikasi native */
+    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #0f172a; }
+    iframe { width: 100%; height: 100%; border: none; display: block; }
   </style>
 </head>
 <body>
 
-  <p>Memuat Tes Hitung Cepat...</p>
+  <iframe src="https://script.google.com/macros/s/AKfycbwIWLiOqAI5p4gHB0uAw89C5veLLGrT3gkwpvWj941h--7Q_kNFz8LSjhliSkauhA5V/exec" allow="camera; microphone; fullscreen"></iframe>
 
   <script>
-    // Redirect langsung ke URL Google Apps Script Web App
-    window.location.replace("https://script.google.com/macros/s/AKfycbwIWLiOqAI5p4gHB0uAw89C5veLLGrT3gkwpvWj941h--7Q_kNFz8LSjhliSkauhA5V/exec");
-
-    // Daftarkan Service Worker untuk PWA
+    // Daftarkan Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
