@@ -10,16 +10,45 @@
   <link rel="apple-touch-icon" href="icon-192.png">
 
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; background-color: #0f172a; color: #fff; display: flex; justify-content: center; align-items: center; font-family: sans-serif; }
+    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #0f172a; font-family: sans-serif; }
+    iframe { width: 100%; height: 100%; border: none; display: block; }
+    .fallback {
+      display: none;
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: #0f172a; color: white;
+      flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 20px;
+    }
+    .fallback a {
+      margin-top: 15px; background: #22c55e; color: white; padding: 12px 24px;
+      text-decoration: none; border-radius: 8px; font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
-  <p>Memuat Tes Hitung Cepat...</p>
+  <!-- Coba muat via Iframe -->
+  <iframe id="gasFrame" src="https://script.google.com/macros/s/AKfycbwIWLiOqAI5p4gHB0uAw89C5veLLGrT3gkwpvWj941h--7Q_kNFz8LSjhliSkauhA5V/exec" allow="camera; microphone; fullscreen"></iframe>
+
+  <!-- Fallback jika iframe diblokir browser -->
+  <div id="fallbackView" class="fallback">
+    <h2>Tes Hitung Cepat</h2>
+    <p>Klik tombol di bawah untuk membuka aplikasi tes:</p>
+    <a href="https://script.google.com/macros/s/AKfycbwIWLiOqAI5p4gHB0uAw89C5veLLGrT3gkwpvWj941h--7Q_kNFz8LSjhliSkauhA5V/exec" target="_blank">Buka Aplikasi Tes</a>
+  </div>
 
   <script>
-    // Redirect langsung ke URL Google Apps Script Web App
-    window.location.replace("https://script.google.com/macros/s/AKfycbzQufvB0368ptfEgxNqoXyz1lt3rZl13q5oXzsG-grxbHGOiSiuKRq7oH65mqrJgTpb/exec");
+    // Deteksi jika iframe gagal termuat karena proteksi Google
+    const gasUrl = "https://script.google.com/macros/s/AKfycbwIWLiOqAI5p4gHB0uAw89C5veLLGrT3gkwpvWj941h--7Q_kNFz8LSjhliSkauhA5V/exec";
+    
+    // Jika dalam 3 detik iframe tidak merespons atau langsung dialihkan
+    let iframe = document.getElementById('gasFrame');
+    
+    // Auto redirect cerdas untuk pengguna mobile/PWA agar langsung terbuka
+    if(window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
+       window.location.replace(gasUrl);
+    }
 
     // Daftarkan Service Worker untuk PWA
     if ('serviceWorker' in navigator) {
