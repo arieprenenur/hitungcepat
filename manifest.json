@@ -1,8 +1,8 @@
 {
   "name": "Tes Hitung Cepat",
-  "short_name": "Prisma",
+  "short_name": "HitungCepat",
   "description": "Tes Hitung Cepat PRISMA",
-  "start_url": "./index.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
